@@ -66,12 +66,15 @@ sed -i "s|myproject2.wsgi|$PROJECT_NAME|g" /vagrant/gunicorn.service
 #replace the below value with the project socket and service file name
 SOCKET_FILE=traq.socket
 SERVICE_FILE=traq.service
+#replace the below value with the socket name without the .socket extension
+SOCK_PROCESS=traqdev
 
 #copy the templates with replaced values to the systemd folders
 sudo cp /vagrant/gunicorn.socket /etc/systemd/system/$SOCKET_FILE
 sudo cp /vagrant/gunicorn.service /etc/systemd/system/$SERVICE_FILE
 sudo systemctl start $SOCKET_FILE
 sudo systemctl enable $SERVICE_FILE
+sudo systemctl restart $SOCK_PROCESS
 
 ################
 #set up nginx
